@@ -8,9 +8,9 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 module.exports = {
-    app,
-    bcrypt,
-    jwt,
-    route,
-    prisma,
-  };
+  app,
+  bcrypt,
+  jwt,
+  route,
+  prisma,
+};

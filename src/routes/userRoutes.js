@@ -1,10 +1,11 @@
 const { route } = require("../share");
-const { register, login, getUsers } = require("../controllers/userControllers");
+const { register, login, getUsers, deleteUser } = require("../controllers/userControllers");
 const authenticateToken = require("../middleware/authMiddleware");
 
 route.post("/register", register);
 route.post("/login", login);
 route.get("/users", authenticateToken, getUsers);
 route.get("/");
+route.delete("/users/:id", authenticateToken, deleteUser)
 
 module.exports = route;

@@ -1,7 +1,7 @@
 const { registerQuery, loginUser } = require("../queries/userQuery");
 const { bcrypt } = require("../share");
 const { jwt } = require("../share");
-const { getAllUsers } = require("../queries/userQuery");
+const { getAllUsers, getUser } = require("../queries/userQuery");
 
 const register = async (req, res) => {
   const token = await registerQuery(req.body);
@@ -33,8 +33,19 @@ const getUsers = async (req, res) => {
   }
 };
 
+const deleteUser = async (req, res) => {
+  try {
+    const user = await getUser(req.params.id);
+    console.log(req.params.id);
+    res.status(200).send("delete successful");
+  } catch (error) {
+    res.status(500).send("delete error");
+  }
+};
+
 module.exports = {
   register,
   login,
   getUsers,
+  deleteUser,
 };

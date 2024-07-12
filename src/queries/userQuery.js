@@ -52,8 +52,17 @@ const getAllUsers = async () => {
   return await prisma.users.findMany();
 };
 
+const getUser = async (id) => {
+    return await prisma.users.findUnique({
+        where: {
+            id,
+        }
+    });
+}
+
 module.exports = {
   registerQuery,
   loginUser,
   getAllUsers,
+  getUser,
 };

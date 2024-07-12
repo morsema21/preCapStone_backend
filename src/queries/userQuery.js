@@ -53,16 +53,31 @@ const getAllUsers = async () => {
 };
 
 const getUser = async (id) => {
-    return await prisma.users.findUnique({
-        where: {
-            id,
-        }
-    });
-}
+  const user = await prisma.users.delete({
+    where: {
+      id,
+    },
+  });
+  return user;
+};
+
+const updateUserById = async (id, firstName, LastName, email, password) => {
+  const hashPassword = await bcrypt.hash(password, 10);
+  const user = await prisma.users.update({
+    where: { id },
+    data: {
+      firstName,
+      LastName,
+      email,
+      password: hashPassword,
+    },
+  });
+};
 
 module.exports = {
   registerQuery,
   loginUser,
   getAllUsers,
   getUser,
+  updateUserById,
 };

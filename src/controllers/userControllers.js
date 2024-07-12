@@ -1,4 +1,8 @@
-const { registerQuery, loginUser } = require("../queries/userQuery");
+const {
+  registerQuery,
+  loginUser,
+  updateUserById,
+} = require("../queries/userQuery");
 const { bcrypt } = require("../share");
 const { jwt } = require("../share");
 const { getAllUsers, getUser } = require("../queries/userQuery");
@@ -35,11 +39,31 @@ const getUsers = async (req, res) => {
 
 const deleteUser = async (req, res) => {
   try {
-    const user = await getUser(req.params.id);
-    console.log(req.params.id);
-    res.status(200).send("delete successful");
+    const user = getUser(req.params.id);
+    if (!user) {
+      return res.status(404).send("not found");
+    }
+    res.send(console.log("success"));
   } catch (error) {
     res.status(500).send("delete error");
+  }
+};
+
+const updateUser = async (req, res) => {
+  try {
+    const user = updateUserById(
+      req.params.id,
+      req.body.firstName,
+      req.body.LastName,
+      req.body.email,
+      req.body.password
+    );
+    if (!user) {
+      return res.status(404).send("not found");
+    }
+    res.send(console.log("updated"));
+  } catch (error) {
+    res.status(500).send("update error");
   }
 };
 
@@ -48,4 +72,5 @@ module.exports = {
   login,
   getUsers,
   deleteUser,
+  updateUser,
 };

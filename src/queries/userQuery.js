@@ -48,7 +48,12 @@ const loginUser = async (email, password) => {
   return token;
 };
 
+const getAllUsers = async () => {
+  return await prisma.users.findMany();
+};
+
 module.exports = {
   registerQuery,
   loginUser,
+  getAllUsers,
 };

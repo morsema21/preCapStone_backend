@@ -12,6 +12,6 @@
   },
   "scripts": {
     "server": "nodemon server/index.js",
-    "build": "prisma generate"
+    "build": "npx prisma generate && npx prisma migrate dev"
   }
 }

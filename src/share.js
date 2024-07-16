@@ -12,11 +12,7 @@ app.use(express.json());
 
 const route = express.Router();
 
-app.use(
-  cors({
-    origin: "http://localhost:5173",
-  })
-);
+
 
 module.exports = {
   app,

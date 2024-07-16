@@ -12,16 +12,6 @@ const register = async (req, res) => {
   res.send(token);
 };
 
-// const login = async (req, res) => {
-//   try {
-//     const user = await loginUser(req.body.email, req.body.password);
-
-//     res.send({ token });
-//   } catch (error) {
-//     console.log("Error");
-//   }
-// };
-
 const login = async (req, res) => {
   const token = await loginUser(req.body.email, req.body.password);
 

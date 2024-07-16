@@ -6,6 +6,8 @@ const jwt = require("jsonwebtoken");
 const route = express.Router();
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
+const cors = require("cors");
+app.use(cors());
 
 module.exports = {
   app,

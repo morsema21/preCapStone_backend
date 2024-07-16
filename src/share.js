@@ -4,15 +4,10 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
-const cors = require("cors");
-
-app.use(cors());
 
 app.use(express.json());
 
 const route = express.Router();
-
-
 
 module.exports = {
   app,

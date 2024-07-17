@@ -2,6 +2,7 @@ const {
   registerQuery,
   loginUser,
   updateUserById,
+  getSingleUser,
 } = require("../queries/userQuery");
 const { bcrypt } = require("../share");
 const { jwt } = require("../share");
@@ -57,10 +58,23 @@ const updateUser = async (req, res) => {
   }
 };
 
+const getUserById = async (req, res) => {
+  try {
+    const user = await getSingleUser(req.params.id);
+    if (!user) {
+      return res.status(404).send("not found");
+    }
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).send("single user error");
+  }
+};
+
 module.exports = {
   register,
   login,
   getUsers,
   deleteUser,
   updateUser,
+  getUserById,
 };

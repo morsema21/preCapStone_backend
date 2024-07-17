@@ -58,8 +58,15 @@ const getUser = async (id) => {
       id,
     },
   });
-  return user;
 };
+
+const getSingleUser = async (id) => {
+  const user = await prisma.users.findUnique({
+    where: {
+      id,
+    }
+  })
+}
 
 const updateUserById = async (id, firstName, LastName, email, password) => {
   const hashPassword = await bcrypt.hash(password, 10);
@@ -80,4 +87,5 @@ module.exports = {
   getAllUsers,
   getUser,
   updateUserById,
+  getSingleUser,
 };

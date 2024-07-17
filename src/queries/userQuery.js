@@ -61,12 +61,12 @@ const getUser = async (id) => {
 };
 
 const getSingleUser = async (id) => {
-  const user = await prisma.users.findUnique({
+  return await prisma.users.findUnique({
     where: {
       id,
-    }
-  })
-}
+    },
+  });
+};
 
 const updateUserById = async (id, firstName, LastName, email, password) => {
   const hashPassword = await bcrypt.hash(password, 10);

@@ -11,7 +11,7 @@ const { jwt } = require("../share");
 
 const register = async (req, res) => {
   const token = await registerQuery(req.body);
-  res.send(token);
+  res.send({ token });
 };
 
 const login = async (req, res) => {

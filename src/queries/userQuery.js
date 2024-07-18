@@ -19,7 +19,8 @@ const registerQuery = async ({ firstName, LastName, email, password }) => {
       expiresIn: "1h",
     }
   );
-  return token;
+  const returnObject = {token, email}
+  return returnObject;
 };
 
 const loginUser = async (email, password) => {
@@ -46,7 +47,8 @@ const loginUser = async (email, password) => {
     process.env.WEB_TOKEN
   );
   console.log("Token:", token);
-  return token;
+  const returnObject = {token, email}
+  return returnObject;
 };
 
 const getAllUsers = async () => {

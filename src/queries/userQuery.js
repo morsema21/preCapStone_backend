@@ -1,4 +1,5 @@
 const { bcrypt, prisma, jwt } = require("../share");
+
 const registerQuery = async ({ firstName, LastName, email, password }) => {
   const hashPassword = await bcrypt.hash(password, 10);
   const registerUser = await prisma.users.create({
@@ -22,7 +23,7 @@ const registerQuery = async ({ firstName, LastName, email, password }) => {
 };
 
 const loginUser = async (email, password) => {
-  console.log("test", email, password);
+  console.log("Login:", email, password);
   const user = await prisma.users.findUnique({
     where: {
       email,
@@ -30,14 +31,14 @@ const loginUser = async (email, password) => {
   });
   console.log("user:", user);
 
-  //   if (!user) {
-  //     return "No user found.";
-  //   }
+  if (!user) {
+    throw new Error("No user found.");
+  }
   const passwordValid = await bcrypt.compare(password, user.password);
 
-  // if (!passwordValid) {
-  //   return res.status(401).send("Invalid login");
-  // }
+  if (!passwordValid) {
+    throw new Error("Invalid login");
+  }
   const token = jwt.sign(
     {
       id: user.id,
@@ -52,8 +53,8 @@ const getAllUsers = async () => {
   return await prisma.users.findMany();
 };
 
-const getUser = async (id) => {
-  const user = await prisma.users.delete({
+const deleteUserById = async (id) => {
+  return await prisma.users.delete({
     where: {
       id,
     },
@@ -70,7 +71,7 @@ const getSingleUser = async (id) => {
 
 const updateUserById = async (id, firstName, LastName, email, password) => {
   const hashPassword = await bcrypt.hash(password, 10);
-  const user = await prisma.users.update({
+  return await prisma.users.update({
     where: { id },
     data: {
       firstName,
@@ -85,7 +86,7 @@ module.exports = {
   registerQuery,
   loginUser,
   getAllUsers,
-  getUser,
+  deleteUserById,
   updateUserById,
   getSingleUser,
 };

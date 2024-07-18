@@ -3,10 +3,11 @@ const {
   loginUser,
   updateUserById,
   getSingleUser,
+  deleteUserById,
+  getAllUsers,
 } = require("../queries/userQuery");
 const { bcrypt } = require("../share");
 const { jwt } = require("../share");
-const { getAllUsers, getUser } = require("../queries/userQuery");
 
 const register = async (req, res) => {
   const token = await registerQuery(req.body);
@@ -30,7 +31,7 @@ const getUsers = async (req, res) => {
 
 const deleteUser = async (req, res) => {
   try {
-    const user = getUser(req.params.id);
+    const user = await deleteUserById(req.params.id);
     if (!user) {
       return res.status(404).send("not found");
     }

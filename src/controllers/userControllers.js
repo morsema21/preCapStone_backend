@@ -43,7 +43,7 @@ const deleteUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
   try {
-    const user = updateUserById(
+    const user = await updateUserById(
       req.params.id,
       req.body.firstName,
       req.body.LastName,
@@ -53,7 +53,8 @@ const updateUser = async (req, res) => {
     if (!user) {
       return res.status(404).send("not found");
     }
-    res.send(console.log("updated"));
+    console.log(user);
+    res.send(user);
   } catch (error) {
     res.status(500).send("update error");
   }
